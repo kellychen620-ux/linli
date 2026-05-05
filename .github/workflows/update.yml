@@ -2,21 +2,27 @@ name: Daily Update
 
 on:
   schedule:
-    - cron: '0 1 * * *'  # 每天北京时间 09:00（UTC+8）
-  workflow_dispatch:       # 允许手动触发
+    - cron: '0 1 * * *'  # 每天北京时间 09:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Generate HTML
         run: python fetch.py
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
+      - name: Deploy
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add index.html
+          git diff --cached --quiet || git commit -m "update $(date +'%Y-%m-%d')"
+          git push
