@@ -2,7 +2,8 @@ name: Daily Update
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 每天北京时间 11:00
+    - cron: '5 2 * * *'   # 每天北京时间 10:05
+    - cron: '5 12 * * *'  # 每天北京时间 20:05
   workflow_dispatch:
 
 permissions:

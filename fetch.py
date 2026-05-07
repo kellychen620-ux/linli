@@ -30,8 +30,8 @@ for cat_id, goods in sorted(groups.items(), key=lambda x: -sum(g['sale_qty'] for
         rows += f'<tr><td><img src="{g["image_url"]}" width="70" height="70" style="object-fit:cover;border-radius:4px"></td><td>{g["goods_name"]}</td><td>{price_html}</td><td style="text-align:right;font-weight:bold;color:#e44">{g["sale_qty"]:,}</td></tr>'
     sections += f'<div class="section"><h3>🏷 {cat_name} <span class="badge">{len(goods)}件</span></h3><table><tr><th>图片</th><th>商品名称</th><th>价格</th><th>销量</th></tr>{rows}</table></div>'
 
-from datetime import datetime
-updated = datetime.now().strftime('%Y-%m-%d %H:%M')
+from datetime import datetime, timezone, timedelta
+updated = datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M')
 
 html = f'''<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>林里生活 · 热销榜</title>
