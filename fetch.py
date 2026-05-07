@@ -27,8 +27,7 @@ for cat_id, goods in sorted(groups.items(), key=lambda x: -sum(g['sale_qty'] for
             price_html = f'<span style="color:#e44;font-weight:bold">¥{price}</span> <span style="text-decoration:line-through;color:#999;font-size:12px">¥{dp}</span>'
         else:
             price_html = f'<span style="color:#e44;font-weight:bold">¥{price}</span>'
-        goods_url = f'https://shequ.980512.com/qun/goods/detail?mid=6258355454&goods_id={g["goods_id"]}'
-        rows += f'<tr><td><img src="{g["image_url"]}" width="70" height="70" style="object-fit:cover;border-radius:4px"></td><td><a href="{goods_url}" target="_blank" style="color:#2d6a4f;text-decoration:none">{g["goods_name"]}</a></td><td>{price_html}</td><td style="text-align:right;font-weight:bold;color:#e44">{g["sale_qty"]:,}</td></tr>'
+        rows += f'<tr><td><img src="{g["image_url"]}" width="70" height="70" style="object-fit:cover;border-radius:4px;cursor:pointer" onclick="this.style.width=this.style.width==\'100%\'?\'70px\':\'100%\'"></td><td>{g["goods_name"]}</td><td>{price_html}</td><td style="text-align:right;font-weight:bold;color:#e44">{g["sale_qty"]:,}</td></tr>'
     sections += f'<div class="section"><h3>🏷 {cat_name} <span class="badge">{len(goods)}件</span></h3><table><tr><th>图片</th><th>商品名称</th><th>价格</th><th>销量</th></tr>{rows}</table></div>'
 
 from datetime import datetime, timezone, timedelta
